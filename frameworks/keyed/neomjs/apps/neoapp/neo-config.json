@@ -1,0 +1,9 @@
+{
+    "appPath": "../../apps/neoapp/app.mjs",
+    "basePath": "../../",
+    "environment": "development",
+    "mainPath": "../node_modules/neo.mjs/src/Main.mjs",
+    "mainThreadAddons": [],
+    "themes": [],
+    "workerBasePath": "../../node_modules/neo.mjs/src/worker/"
+}
