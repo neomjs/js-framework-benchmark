@@ -91,6 +91,14 @@ class MainComponent extends Base {
     }
 
     /**
+     * Mean override. It is tricky to customise top level app component ids (todo).
+     * @param {String} id
+     */
+    createId(id) {
+        super.createId('main');
+    }
+
+    /**
      *
      * @param {Object} data
      */
