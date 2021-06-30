@@ -18,10 +18,10 @@ class MainComponent extends Base {
          */
         autoMount: true,
         /**
-         * @member {Object} vdom
+         * @member {Object} _vdom
          */
-        vdom:
-        {id: 'main', cn: [
+        _vdom:
+        {cn: [
             {cls: ['container'], cn: [
                 {cls: ['jumbotron'], cn: [
                     {cls: ['row'], cn: [
@@ -45,7 +45,17 @@ class MainComponent extends Base {
      */
     constructor(config) {
         super(config);
-        this.createColumns();
+
+        let me           = this,
+            domListeners = me.domListeners;
+
+        domListeners.push(
+            {click: me.onButtonClick, scope: me, delegate: '.btn'}
+        );
+
+        me.domListeners = domListeners;
+
+        me.createColumns();
     }
 
     /**
@@ -72,12 +82,20 @@ class MainComponent extends Base {
 
             row.cn.push(
                 {cls: ['col-sm-6 smallpad'], cn: [
-                    {tag: 'button', type: 'button', cls: ['btn btn-primary btn-block'], id: item.id, html: item.html}
+                    {tag: 'button', type: 'button', cls: ['btn', 'btn-primary', 'btn-block'], id: item.id, html: item.html}
                 ]}
             );
         }
 
         me.vdom = vdom;
+    }
+
+    /**
+     *
+     * @param {Object} data
+     */
+    onButtonClick(data) {
+        console.log(data.path[0].id);
     }
 }
 
