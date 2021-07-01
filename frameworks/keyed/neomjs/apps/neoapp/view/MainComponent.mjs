@@ -1,5 +1,6 @@
-import Base     from '../../../node_modules/neo.mjs/src/component/Base.mjs';
-import VdomUtil from '../../../node_modules/neo.mjs/src/util/VDom.mjs';
+import Base           from '../../../node_modules/neo.mjs/src/component/Base.mjs';
+import TableComponent from  './TableComponent.mjs';
+import VdomUtil       from '../../../node_modules/neo.mjs/src/util/VDom.mjs';
 
 /**
  * @class NeoApp.view.MainComponent
@@ -18,6 +19,10 @@ class MainComponent extends Base {
          */
         autoMount: true,
         /**
+         * @member {NeoApp.view.TableComponent|null} table=null
+         */
+        table: null,
+        /**
          * @member {Object} _vdom
          */
         _vdom:
@@ -34,7 +39,8 @@ class MainComponent extends Base {
                             {cls: ['row'], flag: 'row', cn: []}
                         ]}
                     ]}
-                ]}
+                ]},
+                {tag: 'span', cls: ['preloadicon', 'glyphicon', 'glyphicon-remove'], 'aria-hidden': true}
             ]}
         ]}
     }}
@@ -55,7 +61,8 @@ class MainComponent extends Base {
 
         me.domListeners = domListeners;
 
-        me.createColumns();
+        me.createColumns(); // silent vdom update
+        me.createTable();
     }
 
     /**
@@ -68,14 +75,14 @@ class MainComponent extends Base {
             i    = 0,
             item,
 
-        map = [
-            {id: 'run',      html: 'Create 1,000 rows'},
-            {id: 'runlots',  html: 'Create 10,000 rows'},
-            {id: 'add',      html: 'Append 1,000 rows'},
-            {id: 'update',   html: 'Update every 10th row'},
-            {id: 'clear',    html: 'Clear'},
-            {id: 'swaprows', html: 'Swap Rows'}
-        ];
+            map = [
+                {id: 'run',      html: 'Create 1,000 rows'},
+                {id: 'runlots',  html: 'Create 10,000 rows'},
+                {id: 'add',      html: 'Append 1,000 rows'},
+                {id: 'update',   html: 'Update every 10th row'},
+                {id: 'clear',    html: 'Clear'},
+                {id: 'swaprows', html: 'Swap Rows'}
+            ];
 
         for (; i < 6; i++) {
             item = map[i];
@@ -86,6 +93,22 @@ class MainComponent extends Base {
                 ]}
             );
         }
+    }
+
+    /**
+     *
+     */
+    createTable() {
+        let me   = this,
+            vdom = me.vdom;
+
+        me.table = Neo.create({
+            module  : TableComponent,
+            appName : me.appName,
+            parentId: me.id
+        });
+
+        vdom.cn[0].cn.splice(1, 0, me.table.vdom);
 
         me.vdom = vdom;
     }
