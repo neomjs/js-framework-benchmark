@@ -45,7 +45,7 @@ class MainComponent extends Base {
                     {cls: ['row'], cn: [
                         {cls: ['col-md-6'], cn: [
                             {cls: ['row'], cn: [
-                                {tag: 'h1', html: 'neomjs'}
+                                {tag: 'h1', html: 'neo.mjs'}
                             ]}
                         ]},
                         {cls: ['col-md-6'], cn: [
