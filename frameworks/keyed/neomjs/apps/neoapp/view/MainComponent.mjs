@@ -1,6 +1,7 @@
-import Base           from '../../../node_modules/neo.mjs/src/component/Base.mjs';
-import TableComponent from  './TableComponent.mjs';
-import VdomUtil       from '../../../node_modules/neo.mjs/src/util/VDom.mjs';
+import Base                    from '../../../node_modules/neo.mjs/src/component/Base.mjs';
+import MainComponentController from  './MainComponentController.mjs';
+import TableComponent          from  './TableComponent.mjs';
+import VdomUtil                from '../../../node_modules/neo.mjs/src/util/VDom.mjs';
 
 /**
  * @class NeoApp.view.MainComponent
@@ -18,6 +19,18 @@ class MainComponent extends Base {
          * @member {Boolean} autoMount=true
          */
         autoMount: true,
+        /**
+         * @member {Neo.controller.Component} controller=MainComponentController
+         */
+        controller: MainComponentController,
+        /**
+         * @member {Object[]} domListeners
+         * @protected
+         */
+        domListeners: [{
+            click   : 'onButtonClick',
+            delegate: '.btn'
+        }],
         /**
          * @member {NeoApp.view.TableComponent|null} table=null
          */
@@ -52,17 +65,8 @@ class MainComponent extends Base {
     constructor(config) {
         super(config);
 
-        let me           = this,
-            domListeners = me.domListeners;
-
-        domListeners.push(
-            {click: me.onButtonClick, scope: me, delegate: '.btn'}
-        );
-
-        me.domListeners = domListeners;
-
-        me.createColumns(); // silent vdom update
-        me.createTable();
+        this.createColumns(); // silent vdom update
+        this.createTable();
     }
 
     /**
@@ -103,9 +107,10 @@ class MainComponent extends Base {
             vdom = me.vdom;
 
         me.table = Neo.create({
-            module  : TableComponent,
-            appName : me.appName,
-            parentId: me.id
+            module   : TableComponent,
+            appName  : me.appName,
+            parentId : me.id,
+            reference: 'table'
         });
 
         vdom.cn[0].cn.splice(1, 0, me.table.vdom);
@@ -119,14 +124,6 @@ class MainComponent extends Base {
      */
     createId(id) {
         super.createId('main');
-    }
-
-    /**
-     *
-     * @param {Object} data
-     */
-    onButtonClick(data) {
-        console.log(data.path[0].id);
     }
 }
 
