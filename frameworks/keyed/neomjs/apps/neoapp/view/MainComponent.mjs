@@ -115,7 +115,7 @@ class MainComponent extends Base {
             reference: 'table'
         });
 
-        vdom.cn[0].cn.splice(1, 0, me.table.vdom);
+        vdom.cn.splice(1, 0, me.table.vdom);
 
         me.vdom = vdom;
     }
