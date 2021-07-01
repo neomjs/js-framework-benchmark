@@ -20,6 +20,10 @@ class MainComponent extends Base {
          */
         autoMount: true,
         /**
+         * @member {String[]} cls=['container']
+         */
+        cls: ['container'],
+        /**
          * @member {Neo.controller.Component} controller=MainComponentController
          */
         controller: MainComponentController,
@@ -39,22 +43,20 @@ class MainComponent extends Base {
          * @member {Object} _vdom
          */
         _vdom:
-        {cn: [
-            {cls: ['container'], cn: [
-                {cls: ['jumbotron'], cn: [
-                    {cls: ['row'], cn: [
-                        {cls: ['col-md-6'], cn: [
-                            {cls: ['row'], cn: [
-                                {tag: 'h1', html: 'neo.mjs'}
-                            ]}
-                        ]},
-                        {cls: ['col-md-6'], cn: [
-                            {cls: ['row'], flag: 'row', cn: []}
+        {cls: ['container'], cn: [
+            {cls: ['jumbotron'], cn: [
+                {cls: ['row'], cn: [
+                    {cls: ['col-md-6'], cn: [
+                        {cls: ['row'], cn: [
+                            {tag: 'h1', html: 'neo.mjs'}
                         ]}
+                    ]},
+                    {cls: ['col-md-6'], cn: [
+                        {cls: ['row'], flag: 'row', cn: []}
                     ]}
-                ]},
-                {tag: 'span', cls: ['preloadicon', 'glyphicon', 'glyphicon-remove'], 'aria-hidden': true}
-            ]}
+                ]}
+            ]},
+            {tag: 'span', cls: ['preloadicon', 'glyphicon', 'glyphicon-remove'], 'aria-hidden': true}
         ]}
     }}
 
@@ -116,14 +118,6 @@ class MainComponent extends Base {
         vdom.cn[0].cn.splice(1, 0, me.table.vdom);
 
         me.vdom = vdom;
-    }
-
-    /**
-     * Mean override. It is tricky to customise top level app component ids (todo).
-     * @param {String} id
-     */
-    createId(id) {
-        super.createId('main');
     }
 }
 

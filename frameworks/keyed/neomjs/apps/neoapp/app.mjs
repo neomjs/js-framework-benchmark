@@ -4,7 +4,7 @@ const onStart = () => Neo.app({
     appPath : 'apps/neoapp/',
     mainView: MainComponent,
     name    : 'NeoApp',
-    renderTo: 'document.body'
+    parentId: 'main'
 });
 
 export {onStart as onStart};
