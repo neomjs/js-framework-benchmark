@@ -37,7 +37,7 @@
     "text": "github:requirejs/text#2.0.15"
   },
   "devDependencies": {
-    "aurelia-cli": "0.33.1",
+    "aurelia-cli": "3.0.8",
     "aurelia-tools": "2.0.0",
     "babel-eslint": "8.2.6",
     "babel-plugin-syntax-flow": "6.18.0",
